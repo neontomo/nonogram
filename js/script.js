@@ -6,9 +6,11 @@ function setup() {
 	textSize(config.textSize);
 	textStyle(BOLD);
 
-	const importButton = createButton("import");
+	const importButton = createFileInput((file) => {
+		if (file.subtype !== "json") return;
+		storage.import(file.data);
+	});
 	importButton.position(10, 10);
-	importButton.mousePressed(storage.import);
 
 	const exportButton = createButton("export");
 	exportButton.position(10, 10 + 35);

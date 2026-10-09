@@ -5,9 +5,8 @@ const storage = {
 		grid = grid.map((row) => row.map(() => 0));
 		// local storage will automatically update
 	},
-	import: () => {
-		const newGrid = JSON.parse(prompt("grid data?"));
-		if (newGrid && newGrid.length > 1) grid = newGrid;
+	import: (json) => {
+		if (json && json.length > 1) grid = json;
 	},
 	export: () => {
 		const filename = prompt("filename?", "grid");

@@ -23,15 +23,7 @@ main {
 }
 
 button {
-	background: #eee;
-	border: 1px solid black;
-	border-radius: 4px;
-	cursor: pointer;
-	padding: 3px 7px;
-}
-
-button:hover {
-	background: #ccc;
+	padding: 1px 7px;
 }
 
 label {
