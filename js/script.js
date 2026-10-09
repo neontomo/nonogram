@@ -1,50 +1,58 @@
+let hideSolution = false;
+
 function setup() {
-  createCanvas(windowHeight, windowHeight)
-  textAlign(CENTER, CENTER)
-  textSize(config.textSize)
-  textStyle(BOLD)
+	createCanvas(windowHeight, windowHeight);
+	textAlign(CENTER, CENTER);
+	textSize(config.textSize);
+	textStyle(BOLD);
 
-  const importButton = createButton('import')
-  importButton.position(10, 10)
-  importButton.mousePressed(storage.import)
+	const importButton = createButton("import");
+	importButton.position(10, 10);
+	importButton.mousePressed(storage.import);
 
-  const exportButton = createButton('export')
-  exportButton.position(10, 10 + 30)
-  exportButton.mousePressed(storage.export)
+	const exportButton = createButton("export");
+	exportButton.position(10, 10 + 35);
+	exportButton.mousePressed(storage.export);
 
-  const clearButton = createButton('clear')
-  clearButton.position(10, 10 + 30 * 2)
-  clearButton.mousePressed(storage.clear)
+	const clearButton = createButton("clear");
+	clearButton.position(10, 10 + 35 * 2);
+	clearButton.mousePressed(storage.clear);
 
-  const storedGrid = storage.get()
-  if (storedGrid) grid = storedGrid
+	const hideSolutionToggle = createCheckbox(" hide solution");
+	hideSolutionToggle.position(10, 10 + 35 * 3);
+	hideSolutionToggle.mousePressed(() => {
+		hideSolution = !hideSolution;
+	});
+
+	const storedGrid = storage.get();
+	if (storedGrid) grid = storedGrid;
 }
 
 function draw() {
-  background('white')
-  drawBoard()
+	background("white");
+	drawBoard();
 
-  for (let index = 0; index < grid.length; index += 1) {
-    addSolutions('row', index)
-    addSolutions('column', index)
-  }
+	for (let index = 0; index < grid.length; index += 1) {
+		addSolutions("row", index);
+		addSolutions("column", index);
+	}
 
-  addHelperLines()
-  storage.update()
+	addHelperLines();
+	storage.update();
 }
 
 function mouseClicked() {
-  for (let rowIndex = 0; rowIndex < grid.length; rowIndex += 1) {
-    for (let columnIndex = 0; columnIndex < grid.length; columnIndex += 1) {
-      const cellBoundary = cellUtils.getCellBoundary(rowIndex, columnIndex)
+	for (let rowIndex = 0; rowIndex < grid.length; rowIndex += 1) {
+		for (let columnIndex = 0; columnIndex < grid.length; columnIndex += 1) {
+			const cellBoundary = cellUtils.getCellBoundary(rowIndex, columnIndex);
 
-      if (cellUtils.isInBounds(mouseX, mouseY, cellBoundary)) {
-        cellUtils.toggleCell(rowIndex, columnIndex)
-      }
-    }
-  }
+			if (cellUtils.isInBounds(mouseX, mouseY, cellBoundary)) {
+				cellUtils.toggleCell(rowIndex, columnIndex);
+			}
+		}
+	}
 }
 
 function windowResized() {
-  resizeCanvas(windowHeight, windowHeight)
+	resizeCanvas(windowHeight, windowHeight);
 }
